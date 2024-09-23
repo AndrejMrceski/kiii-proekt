@@ -46,8 +46,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push image for Product
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: mrceski/kiii-proekt:latest
+          context: ./product
+          tags: mrceski/kiii-proekt-product:latest
+
+      - name: Build and push image for Order
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          context: ./order
+          tags: mrceski/kiii-proekt-order:latest
