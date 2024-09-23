@@ -79,4 +79,13 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>test</id>
+			<properties>
+				<spring-boot.run.profiles>test</spring-boot.run.profiles>
+			</properties>
+		</profile>
+	</profiles>
+
 </project>

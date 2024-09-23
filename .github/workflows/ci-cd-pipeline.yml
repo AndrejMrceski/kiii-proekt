@@ -21,22 +21,14 @@ jobs:
       - name: Build and test Product Service with Maven
         working-directory: product
         run: |
-          mvn clean install
-          mvn test
-        env:
-          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
-          SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
-          SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+          mvn clean install -Ptest
+          mvn test -Ptest
 
       - name: Build and test Order Service with Maven
         working-directory: order
         run: |
-          mvn clean install
-          mvn test
-        env:
-          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
-          SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
-          SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+          mvn clean install -Ptest
+          mvn test -Ptest
 
   docker_build_push:
     runs-on: ubuntu-latest
