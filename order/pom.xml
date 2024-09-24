@@ -60,9 +60,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -83,10 +93,15 @@
 		<profile>
 			<id>test</id>
 			<properties>
-				<!-- Activate the Spring Boot 'test' profile -->
-				<spring-boot.run.profiles>test</spring-boot.run.profiles>
+				<activeProfile>test</activeProfile>
+			</properties>
+		</profile>
+		<profile>
+			<id>devprod</id>
+			<properties>
+				<activeProfile>devprod</activeProfile>
 			</properties>
 		</profile>
 	</profiles>
-	
+
 </project>
