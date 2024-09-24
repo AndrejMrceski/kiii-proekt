@@ -50,12 +50,12 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: ./product
+          context: product
           tags: mrceski/kiii-proekt-product:latest
 
       - name: Build and push image for Order
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: ./order
+          context: order
           tags: mrceski/kiii-proekt-order:latest
