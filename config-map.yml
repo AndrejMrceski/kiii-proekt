@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kiii-proekt-config
+  namespace: kiii
+data:
+  DATASOURCE_USERNAME: temp
+  DATASOURCE_URL: jdbc:mysql://mysql:3306/db?useSSL=false&allowPublicKeyRetrieval=true

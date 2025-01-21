@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-statefulset
+  namespace: kiii
+spec:
+  serviceName: "mysql"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0 
+        ports:
+        - containerPort: 3306
+          name: mysql
+        - containerPort: 33060
+          name: mysqlx
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: kiii-proekt-secret
+              key: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: kiii-proekt-config
+              key: DATASOURCE_USERNAME
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: kiii-proekt-secret
+              key: DATASOURCE_PASSWORD
+        - name: MYSQL_DATABASE
+          value: "db"
+        - name: MYSQL_GROUP_REPLICATION_BOOTSTRAP
+          value: "off"
+        - name: MYSQL_GROUP_NAME
+          value: "kiii-replication-group"
+        - name: MYSQL_GROUP_SEEDS
+          value: "mysql-0.mysql,mysql-1.mysql,mysql-2.mysql"
+        volumeMounts:
+        - name: mysql-pvc
+          mountPath: /var/lib/mysql
+        - name: init-script-volume
+          mountPath: /etc/mysql/init/initialize.sh
+          subPath: initialize.sh
+          command: ["chmod", "+x", "/etc/mysql/init/initialize.sh"]
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "/etc/mysql/init/initialize.sh"]
+      volumes:
+      - name: init-script-volume
+        configMap:
+          name: mysql-init-script
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-pvc
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+      storageClassName: local-path

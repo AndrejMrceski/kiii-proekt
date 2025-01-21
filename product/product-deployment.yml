@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-deployment
+  namespace: kiii
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kiii-proekt
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 2
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: kiii-proekt
+    spec:
+      containers:
+      - name: kiii-proekt-product
+        image: mrceski/kiii-proekt-product:latest
+        ports:
+        - containerPort: 8080
