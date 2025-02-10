@@ -1,5 +1,8 @@
 package com.proekt186051.order.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -23,6 +26,7 @@ public class LineItem {
     @MapsId("orderId")
     @JoinColumn(name = "order_id")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Order order;
         
     @ManyToOne

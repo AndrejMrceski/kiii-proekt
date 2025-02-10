@@ -69,7 +69,7 @@ public class OrderController {
         }
     }*/
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<?> getAllOrders() {
         try {
             List<Order> orders = orderService.findAll();
