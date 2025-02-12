@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql-router
-  namespace: kiii
+  namespace: kiii-proekt
 spec:
   replicas: 1
   selector:
@@ -23,13 +23,13 @@ spec:
           value: "3306"
         - name: MYSQL_USER
           valueFrom:
-            secretKeyRef:
-              name: kiii-proekt-secret
-              key: DATASOURCE_USERNAME
+            configMapKeyRef:
+              name: mysql-config
+              key: MYSQL_USER
         - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: kiii-proekt-secret
-              key: DATASOURCE_PASSWORD
+              name: mysql-secret
+              key: MYSQL_PASSWORD
         ports:
         - containerPort: 6446

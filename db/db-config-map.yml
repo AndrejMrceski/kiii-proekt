@@ -1,9 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mysql-init-script
-  namespace: kiii
+  name: mysql-config
+  namespace: kiii-proekt
 data:
+  MYSQL_DATABASE: db
+  MYSQL_USER: temp
   initialize.sh: |
     #!/bin/bash
     if [ $(hostname) = "mysql-0" ]; then

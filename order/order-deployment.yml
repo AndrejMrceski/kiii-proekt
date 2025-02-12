@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: product-deployment
+  name: order-deployment
   namespace: kiii-proekt
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: product-kiii-proekt
+      app: order-kiii-proekt
   template:
     metadata:
       labels:
-        app: product-kiii-proekt
+        app: order-kiii-proekt
     spec:
       containers:
-      - name: kiii-proekt-product
-        image: mrceski/kiii-proekt-product:latest
+      - name: kiii-proekt-order
+        image: mrceski/kiii-proekt-order:latest
         ports:
         - containerPort: 8080
         env:
