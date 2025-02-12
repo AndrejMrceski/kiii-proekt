@@ -5,4 +5,4 @@ metadata:
   namespace: kiii-proekt
 data:
   DATASOURCE_USERNAME: temp
-  DATASOURCE_URL: jdbc:mysql://mysql:3306/db?useSSL=false&allowPublicKeyRetrieval=true
+  DATASOURCE_URL: jdbc:mysql://mysql.kiii-proekt.svc.cluster.local:3306/db
