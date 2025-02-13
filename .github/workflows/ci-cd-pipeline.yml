@@ -83,7 +83,7 @@ jobs:
           chmod 600 $HOME/.kube/config
           export KUBECONFIG=$HOME/.kube/config
 
-      - name: Deploy Kubernetes Manifests in Order
+      - name: Deploy Kubernetes Manifests
         run: |
           kubectl apply -f namespace.yml
           kubectl apply -f config.yml -f secrets.yml -f db-config.yml -f db-secrets.yml
